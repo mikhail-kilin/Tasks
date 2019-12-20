@@ -1,0 +1,31 @@
+.task_title
+  h1
+    = @task.title
+    - if @task.done
+      img(src="#{image_path('done.png')}" style='width:25px')
+    - else
+      img(src="#{image_path('not_done.jpg')}" style="width:25px")
+  div
+    - if !@task.done && TaskPolicy.new(@task, current_user).can_use?
+      => link_to 'Done', task_done_path(@task), method: :patch
+.task_content
+  p
+    = @task.content
+
+div
+  strong
+    |Published: #{@task.created_at}
+
+hr
+- @task.comments.each do |comment|
+  .comment_content
+  = comment.content
+  hr
+
+= form_for [@task, @comment] do |form|
+  .form-group
+    = form.label :content
+    = form.text_area :content, class: "form-control"
+
+  .form-group
+    = form.submit class: "btn btn-primary"

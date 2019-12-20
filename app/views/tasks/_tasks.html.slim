@@ -1,0 +1,18 @@
+hr
+- @tasks.each do |task|
+  .task-title
+    span
+      h5 
+        = link_to task.title, task
+        - if task.done
+          img(src="#{image_path('done.png')}" style='width:15px')
+        - else
+          img(src="#{image_path('not_done.jpg')}" style="width:15px")
+  .task-preview
+    = truncate(task.content, length: 64)
+
+  => link_to 'Show', task
+  - if TaskPolicy.new(task, current_user).can_use?
+    => link_to 'Edit', edit_task_path(task)
+    => link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
+  hr

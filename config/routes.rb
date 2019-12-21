@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :tasks do
     patch 'done' => 'tasks#make_done'
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :update, :destroy, :edit]
   end
 
   root to: "pages#welcome"

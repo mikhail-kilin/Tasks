@@ -20,12 +20,10 @@ hr
 - @task.comments.each do |comment|
   .comment_content
   = comment.content
+  - if CommentPolicy.new(comment, current_user).can_use?
+    .buttons
+      => link_to 'Edit', edit_task_comment_path(id: comment.id, task_id: @task.id)
+      => link_to 'Destroy', task_comment_path(id: comment.id, task_id: @task.id), method: :delete, data: { confirm: 'Are you sure?' }
   hr
 
-= form_for [@task, @comment] do |form|
-  .form-group
-    = form.label :content
-    = form.text_area :content, class: "form-control"
-
-  .form-group
-    = form.submit class: "btn btn-primary"
+= render "comments/comments_form"

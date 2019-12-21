@@ -7,7 +7,7 @@
       img(src="#{image_path('not_done.jpg')}" style="width:25px")
   div
     - if !@task.done && TaskPolicy.new(@task, current_user).can_use?
-      => link_to 'Done', task_done_path(@task), method: :patch
+      => link_to 'Done', task_done_path(@task), method: :patch, id: "Make_done"
 .task_content
   p
     = @task.content

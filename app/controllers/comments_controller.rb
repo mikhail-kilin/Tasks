@@ -7,9 +7,11 @@ class CommentsController < ApplicationController
 
         @comment = current_user.comments.new(comment_params)
         @comment.task = @task
-        @comment.save
-
-        redirect_to @task, notice: 'Comment was successfully created.'
+        if @comment.save
+          redirect_to @task, notice: 'Comment was successfully created.'
+        else
+          redirect_to @task, alert: 'Comment shouldn`t be empty'
+        end
     end
 
     def edit

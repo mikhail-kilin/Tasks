@@ -1,0 +1,21 @@
+= form_with(model: task, local: true) do |form|
+  - if task.errors.any?
+    .(id="error_explanation")
+      ul
+        - task.errors.full_messages.each do |message|
+          .alert.alert-danger.alert-dismissible.fade.show role="alert"
+            button type="button" class="close" data-dismiss="alert" aria-label="Close"
+              span aria-hidden="true" &times;
+            = message
+  
+
+  div.form-group
+    = form.label :title
+    = form.text_field :title, class: "form-control"
+
+  .form-group
+    = form.label :content
+    = form.text_area :content, class: "form-control"
+
+  .form-group
+    = form.submit class: "btn btn-primary", id: "Submit"
